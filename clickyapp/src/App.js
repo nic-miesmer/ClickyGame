@@ -5,26 +5,26 @@ import Title from "./components/Title";
 import cards from "./info.json";
 import _ from 'lodash';
 
-
 class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
     cards
   };
 
-  removeCard = id => {
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-    const cards = this.state.cards.filter(card => card.id !== id);
-    // Set this.state.friends equal to the new friends array
+  shuffleCards = id => {
+    //use lodash to shuffle the cards array, and set it back to cards
+    //Do I need to clone the cards info, to not mess with the original?
+
+    const cards = _.shuffle(this.state.cards)
+    console.log(cards);
+    // Set this.state.cards equal to the new shuffled cards array
     this.setState({ cards });
   }; 
 
-  // Map over this.state.friends and render a FriendCard component for each friend object
+  // Map over this.state.cards and render a Card component for each card object
   render() {
-    console.log("Friends: ", cards);
-    let newCards = _.shuffle(cards)
+    // console.log("Cards: ", cards);
 
-    console.log("Shuffle Friends: ", newCards);
 
     return (
       <Wrapper>
@@ -34,7 +34,7 @@ class App extends Component {
         // let newCards = _.(this.state.cards)
         this.state.cards.map(card => (
           <Card
-            removeFriend={this.removeCard}
+            shuffleCards={this.shuffleCards}
             id={card.id}
             key={card.id}
             name={card.name}
