@@ -8,39 +8,56 @@ import _ from 'lodash';
 class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
-    cards
+    score: 0,
+    cards,
   };
 
-  shuffleCards = id => {
+  shuffleCards = () => {
     //use lodash to shuffle the cards array, and set it back to cards
     //Do I need to clone the cards info, to not mess with the original?
-
     const cards = _.shuffle(this.state.cards)
     console.log(cards);
     // Set this.state.cards equal to the new shuffled cards array
     this.setState({ cards });
   }; 
 
+
+  clickCard = id => {
+    //find which card is clicked
+    console.log("clicked: ", id)
+    const clickedCard = this.state.cards.filter(card => card.id === id);
+
+    //if clicked card is true 
+      // end game
+
+    //if clicked is false 
+      //set to true
+
+    
+    
+    
+    // Set this.state.friends equal to the new friends array
+    this.setState({ cards });
+  };
+
+  // game state
+  
+  
+
   // Map over this.state.cards and render a Card component for each card object
   render() {
-    // console.log("Cards: ", cards);
-
+    console.log("Outside The Return: ", cards);
 
     return (
       <Wrapper>
         <Title>Clicky Game</Title>
-
         {
         // let newCards = _.(this.state.cards)
         this.state.cards.map(card => (
           <Card
-            shuffleCards={this.shuffleCards}
+            clickCard = {this.clickCard}
             id={card.id}
-            key={card.id}
-            name={card.name}
             image={card.image}
-            occupation={card.occupation}
-            location={card.location}
           />
         ))}
       </Wrapper>
