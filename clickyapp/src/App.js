@@ -31,13 +31,10 @@ class App extends Component {
 
   clickCard = id => {
 
-    const cards = this.state.cards
-
-
     //find which card is clicked
-    console.log("clicked: ", id)
-    const clickedCard = this.state.cards.filter(card => card.id === id);
-
+    console.log("clicked ID: ", id)
+    //find the card that was clicked
+    const clickedCard = this.state.cards.filter(card =>  card.id === id );
     console.log("clicked card: ", clickedCard)
 
     console.log("Score: ", score);
@@ -51,13 +48,19 @@ class App extends Component {
 
     else if(score < cards.length) {
       console.log("clicked card is false")
+      console.log("id passed in ",id)
 
-      // setCard clicked to true
-      clickedCard.clicked = !clickedCard.clicked;
+      const clickedCardId = id
+      
+      console.log("This is the card we clicked: ", clickedCard)
+      console.log("This is the corresponding card in cards: " , cards[clickedCardId])
+      // set Card clicked to true
+      clickedCard.clicked = true;
       console.log("clicked card should now be true: " ,clickedCard.clicked)
       // increment score
       score++;
       console.log(score)
+
       if(score > topScore){
         // set topScore = score increment is always one behind
         topScore = score;
