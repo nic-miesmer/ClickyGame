@@ -5,7 +5,6 @@ import Title from "./components/Title";
 import cards from "./info.json";
 import _ from 'lodash';
 
-
 let score = 0;
 let topScore = 0;
 class App extends Component {
@@ -17,7 +16,7 @@ class App extends Component {
   };
 
   shuffleCards = cards => {
-    console.log("shuffle cards: ", cards);
+    console.log("shuffle cards function: ", cards);
 
     //use lodash to shuffle the cards array, and set it back to cards
     //Do I need to clone the cards info, to not mess with the original?
@@ -31,6 +30,10 @@ class App extends Component {
 
 
   clickCard = id => {
+
+    const cards = this.state.cards
+
+
     //find which card is clicked
     console.log("clicked: ", id)
     const clickedCard = this.state.cards.filter(card => card.id === id);
@@ -44,7 +47,6 @@ class App extends Component {
       console.log("clicked card is true")
             // end game
       console.log("You Lose")
-
     }
 
     else if(score < cards.length) {
@@ -57,25 +59,24 @@ class App extends Component {
       score++;
       console.log(score)
       if(score > topScore){
-        // increment topScore
-        topScore++
+        // set topScore = score increment is always one behind
+        topScore = score;
+        console.log("Incrementing top score: ", topScore);
         this.setState({topScore})
-
+        console.log("state topScore?: ", this.state.topScore)
       }
 
+        //shuffle images
+        this.shuffleCards(cards );
+    
+        //set new state for cards and score
+        this.setState({score})
     }
 
-    //shuffle images
-    this.shuffleCards( cards );
     
-    //set new state for cards and score
-    this.setState({ cards });
-    this.setState({score})
-
   };
 
   // game state
-  
   
 
   // Map over this.state.cards and render a Card component for each card object
@@ -92,6 +93,7 @@ class App extends Component {
             clickCard = {this.clickCard}
             id={card.id}
             image={card.image}
+            key={card.id}
           />
         ))}
       </Wrapper>

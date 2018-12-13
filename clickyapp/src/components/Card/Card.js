@@ -7,9 +7,6 @@ const Card = props => (
           <div className="img-container">
             <img alt={props.name} src={props.image} />
           </div>
-          <div className="content">
-
-          </div>
           <span onClick={() => props.clickCard(props.id)} className="remove">𝘅</span>
         </div>
 );
