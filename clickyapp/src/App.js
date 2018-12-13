@@ -5,18 +5,26 @@ import Title from "./components/Title";
 import cards from "./info.json";
 import _ from 'lodash';
 
+
+let score = 0;
+let topScore = 0;
 class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
     score: 0,
+    topScore: 0,
     cards,
   };
 
-  shuffleCards = () => {
+  shuffleCards = cards => {
+    console.log("shuffle cards: ", cards);
+
     //use lodash to shuffle the cards array, and set it back to cards
     //Do I need to clone the cards info, to not mess with the original?
-    const cards = _.shuffle(this.state.cards)
-    console.log(cards);
+     const shuffledCards = _.shuffle(cards)
+     cards = shuffledCards
+     console.log("shuffled cards: ", cards);
+
     // Set this.state.cards equal to the new shuffled cards array
     this.setState({ cards });
   }; 
@@ -27,17 +35,43 @@ class App extends Component {
     console.log("clicked: ", id)
     const clickedCard = this.state.cards.filter(card => card.id === id);
 
+    console.log("clicked card: ", clickedCard)
+
+    console.log("Score: ", score);
+    console.log("cards.size: ", cards.length)
     //if clicked card is true 
-      // end game
+    if(clickedCard[0].clicked){
+      console.log("clicked card is true")
+            // end game
+      console.log("You Lose")
 
-    //if clicked is false 
-      //set to true
+    }
 
+    else if(score < cards.length) {
+      console.log("clicked card is false")
+
+      // setCard clicked to true
+      clickedCard.clicked = !clickedCard.clicked;
+      console.log("clicked card should now be true: " ,clickedCard.clicked)
+      // increment score
+      score++;
+      console.log(score)
+      if(score > topScore){
+        // increment topScore
+        topScore++
+        this.setState({topScore})
+
+      }
+
+    }
+
+    //shuffle images
+    this.shuffleCards( cards );
     
-    
-    
-    // Set this.state.friends equal to the new friends array
+    //set new state for cards and score
     this.setState({ cards });
+    this.setState({score})
+
   };
 
   // game state
